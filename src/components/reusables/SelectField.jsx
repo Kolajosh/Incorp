@@ -67,14 +67,14 @@ function SelectField({
           type="button"
           className={`${
             selectedOption ? "text-xs" : "text-xs text-gray-300"
-          } w-full text-left px-4 py-4 rounded bg-[#ffffff] bg-opacity-10`}
+          } w-full border rounded-xl text-left px-4 py-4 bg-[#ffffff] bg-opacity-10`}
           onClick={handleToggleDropdown}
           value={selectedOption ? selectedOption.label : placeholder}
         />
         <CaretDownIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
       </div>
       {isOpen && (
-        <div className="absolute z-10 w-full mt-20 bg-[#ffffff] bg-opacity-10 rounded-md shadow-lg">
+        <div className="absolute z-10 w-full mt-20 bg-[#ffffff] rounded-md shadow-lg">
           <div className="overflow-x-auto h-60">
             {options?.map((option) => (
               <div

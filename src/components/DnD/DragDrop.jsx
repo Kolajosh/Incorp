@@ -32,18 +32,43 @@ const DragDrop = ({ onFileSelect }) => {
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.size > 1048576) {
-      // File size exceeds 1MB
+
+    // Check if a file is selected
+    if (!file) {
       ToastNotify({
         type: "warning",
-        message: "File size exceeds the maximum limit of 1MB.",
+        message: "Please select a file.",
         position: "top-right",
       });
-
       setSelectedFile(null);
       return;
     }
-    // Handle the uploaded file here
+
+    // Check file size
+    if (file.size > 12 * 1024 * 1024) {
+      // File size exceeds 12MB
+      ToastNotify({
+        type: "warning",
+        message: "File size exceeds the maximum limit of 12MB.",
+        position: "top-right",
+      });
+      setSelectedFile(null);
+      return;
+    }
+
+    // Check file type
+    if (file.type !== "application/pdf") {
+      // File is not a PDF
+      ToastNotify({
+        type: "warning",
+        message: "Only PDF files are allowed.",
+        position: "top-right",
+      });
+      setSelectedFile(null);
+      return;
+    }
+
+    // If all checks pass, handle the valid PDF file
     setSelectedFile(file);
     onFileSelect(file); // Call the callback function with the selected file
   };
@@ -56,7 +81,7 @@ const DragDrop = ({ onFileSelect }) => {
   return (
     <div className="flex gap-10 justify-between">
       <div
-        className={`w-full font-jarkata bg-[#434141] relative flex flex-col items-center justify-center py-16 border border-[#939393] rounded-3xl ${
+        className={`w-full font-jarkata bg-[#EFF6F580] relative flex flex-col items-center justify-center py-16 border-2 border-dashed border-[#0000004D] ${
           isDragging ? "border-blue-500" : "border-white"
         }`}
         onDragEnter={handleDragEnter}
@@ -65,7 +90,7 @@ const DragDrop = ({ onFileSelect }) => {
         onDrop={(e) => handleDrop(e)}
       >
         {selectedFile ? (
-          <div className="text-center text-lg text-white">
+          <div className="text-center text-lg text-black">
             <p>File selected: {selectedFile.name}</p>
             <button
               className="mt-4 px-4 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600"
@@ -79,13 +104,17 @@ const DragDrop = ({ onFileSelect }) => {
             <div className="flex justify-center mb-3">
               <Dnd />
             </div>
-            <div className="text-lg text-white">
+            <div className="text-lg text-black">
               <span
-                className="text-[#ffffff] cursor-pointer"
+                className="text-[#000] text-lg font-semibold cursor-pointer"
                 onClick={handleUpload}
               >
-                Click to select file
+                Browse File
               </span>{" "}
+              <span>Or drop here</span>
+            </div>
+            <div className="font-medium mt-3">
+              Only PDF format. Max file size 12MB
             </div>
             <input
               id="file-upload"
@@ -96,14 +125,6 @@ const DragDrop = ({ onFileSelect }) => {
             />
           </div>
         )}
-      </div>
-      <div className="w-full flex flex-col justify-end font-jarkata text-xl">
-        File Requirements
-        <ul className="space-y-3 mt-4 list-disc text-sm">
-          <li>Square cover art</li>
-          <li>JPG or PNG format</li>
-          <li>At least 2048 X 2048 pixel size</li>
-        </ul>
       </div>
     </div>
   );
