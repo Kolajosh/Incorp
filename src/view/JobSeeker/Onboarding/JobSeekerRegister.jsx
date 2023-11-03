@@ -148,7 +148,7 @@ const JobSeekerRegister = () => {
         <div className="text-black font-bold text-sm ">
           Have an account?{" "}
           <span
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
             className="text-[#1ACAA6] cursor-pointer"
           >
             Log In
