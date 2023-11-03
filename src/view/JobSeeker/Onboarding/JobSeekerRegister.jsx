@@ -41,7 +41,7 @@ const JobSeekerRegister = () => {
         if (response?.status === 200) {
           ToastNotify({
             type: "success",
-            message: responseMessageHandler({ response }),
+            message: "Registered Successfully, Proceed to Login",
             position: "top-right",
           });
         }
