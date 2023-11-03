@@ -16,8 +16,9 @@ const CheckedList = ({ label, items, selected, onSelect }) => {
                 type="checkbox"
                 checked={selected === item}
                 onChange={() => handleItemClick(item)}
-                className="rounded-md"
+                className="rounded-md appearance-none border-2 border-[#1ACAA6] w-5 h-5 checked:bg-[#1ACAA6]"
               />
+
               <span className="ml-3 text-sm">{item}</span>
             </label>
           </li>

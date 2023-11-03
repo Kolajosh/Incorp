@@ -17,8 +17,10 @@ import img3 from "../../../assets/img/2.png";
 import img4 from "../../../assets/img/3.png";
 import trusted from "../../../assets/img/trustedCompanies.png";
 import Footer from "./component/Footer";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative">
@@ -33,8 +35,18 @@ const LandingPage = () => {
               <div className="cursor-pointer">Categories</div>
               <div className="cursor-pointer">About Us</div>
               <div className="cursor-pointer">Contact</div>
-              <div className="cursor-pointer">Register</div>
-              <div className="cursor-pointer">Login</div>
+              <div
+                onClick={() => navigate("/register/jobseeker")}
+                className="cursor-pointer"
+              >
+                Register
+              </div>
+              <div
+                onClick={() => navigate("/login")}
+                className="cursor-pointer"
+              >
+                Login
+              </div>
             </div>
             <div className="absolute top-24 left-72">
               <img className="h-[90vh] object-contain" src={hero} alt="nav" />

@@ -12,10 +12,16 @@ import { responseMessageHandler } from "../../../utils/libs";
 import { loginSchema } from "../../../utils/validationSchema/login.validations";
 import { loginUrl } from "../../../utils/apiURLs/requests";
 import useApiRequest from "../../../utils/hooks/useApiRequest";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../../Redux/slices/authSlice";
+import useToggle from "../../../utils/hooks/useToggle";
+import PageLoader from "../../../components/PageLoader";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, toggleLoading] = useToggle();
   const makeRequest = useApiRequest();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -24,21 +30,31 @@ const Login = () => {
     },
 
     onSubmit: async () => {
-      console.log(values);
+      toggleLoading();
       const payload = {
         email: values?.email,
         password: values?.password,
       };
       try {
         const response = await makeRequest.post(loginUrl, payload);
+        toggleLoading();
         if (response?.status === 200) {
+          const role = response?.data?.data?.role;
           ToastNotify({
             type: "success",
             message: responseMessageHandler({ response }),
             position: "top-right",
           });
+          dispatch(loginSuccess(response?.data?.data));
+
+          console.log(role);
+
+          if (role === "Applicant") {
+            navigate("/dashboard/jobseeker");
+          }
         }
       } catch (error) {
+        toggleLoading();
         ToastNotify({
           type: "error",
           message: responseMessageHandler({ error }),
@@ -62,6 +78,7 @@ const Login = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
+      {loading && <PageLoader message="Logging in" />}
       {/* image */}
       <div className="md:max-h-screen w-full">
         <img className="object-contain h-screen" src={Img} alt="Incorp" />

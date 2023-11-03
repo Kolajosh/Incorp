@@ -1,17 +1,25 @@
 import React from "react";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import { Persistor, store } from "./Redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ToastContainer />
-    <App />
-    <Analytics />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={Persistor}>
+        <ToastContainer />
+        <App />
+        <Analytics />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

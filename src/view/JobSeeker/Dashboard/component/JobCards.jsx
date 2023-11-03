@@ -4,14 +4,19 @@ import { ReactComponent as Bookmark } from "../../../../assets/svg/fluent_bookma
 import { ReactComponent as Locay } from "../../../../assets/svg/fluent_location-48-regular.svg";
 import { ReactComponent as People } from "../../../../assets/svg/fluent_people-20-regular.svg";
 import { jobCardDetails } from "./constants";
+import { useNavigate } from "react-router-dom";
 
 const JobCards = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="mb-8"></div>
       <div className="grid grid-cols-3 gap-5">
         {jobCardDetails?.map((x) => (
-          <div className="bg-white rounded-xl p-3">
+          <div
+            onClick={() => navigate("/dashboard/jobseeker/job-details/1234")}
+            className="bg-white cursor-pointer rounded-xl p-3"
+          >
             <div className="flex items-center gap-5">
               <div>
                 <CompanyIcon />

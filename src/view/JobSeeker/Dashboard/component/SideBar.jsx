@@ -6,8 +6,17 @@ import { ReactComponent as App } from "../../../../assets/svg/application-icon.s
 import { ReactComponent as Message } from "../../../../assets/svg/message-icon.svg";
 import { ReactComponent as Overview } from "../../../../assets/svg/overview-icon.svg";
 import { ReactComponent as Logout } from "../../../../assets/svg/logout-icon.svg";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../../Redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ selectedMenu, setSelectedMenu }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout);
+    navigate("/login");
+  };
   return (
     <div className="bg-[#0A6251] w-full h-screen text-white py-5 px-5 flex flex-col justify-between">
       <div>
@@ -98,7 +107,10 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
           </div>
         </div>
       </div>
-      <div className="flex cursor-pointer items-center gap-3 mt-5 text-md">
+      <div
+        onClick={() => handleLogout()}
+        className="flex cursor-pointer items-center gap-3 mt-5 text-md"
+      >
         <Logout />
         Log Out
       </div>
