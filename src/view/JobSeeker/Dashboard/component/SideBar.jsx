@@ -17,6 +17,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
     dispatch(logout);
     navigate("/login");
   };
+  console.log(window?.location?.pathname);
   return (
     <div className="bg-[#0A6251] w-full h-screen text-white py-5 px-5 flex flex-col justify-between">
       <div>
@@ -26,15 +27,21 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
         </div>
         <div className="mt-5 space-y-5 text-md">
           <div
-            onClick={() => setSelectedMenu("Home")}
+            onClick={() => {
+              setSelectedMenu("Home");
+              navigate("/dashboard/jobseeker");
+            }}
             className={`flex cursor-pointer items-center gap-3 ${
-              selectedMenu === "Home" &&
+              window?.location?.pathname === "/dashboard/jobseeker" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Home
               style={{
-                fill: selectedMenu === "Home" ? "#1ACAA6" : "#FFFFFF", // Set the fill color based on the selected state
+                fill:
+                  window?.location?.pathname === "/dashboard/jobseeker"
+                    ? "#1ACAA6"
+                    : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}
@@ -42,15 +49,21 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
             Home
           </div>
           <div
-            onClick={() => setSelectedMenu("Profile")}
+            onClick={() => {
+              setSelectedMenu("Profile");
+              navigate("/dashboard/jobseeker/profile");
+            }}
             className={`flex cursor-pointer items-center gap-3 ${
-              selectedMenu === "Profile" &&
+              window?.location?.pathname === "/dashboard/jobseeker/profile" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Profile
               style={{
-                fill: selectedMenu === "Profile" ? "#1ACAA6" : "#FFFFFF", // Set the fill color based on the selected state
+                fill:
+                  window?.location?.pathname === "/dashboard/jobseeker/profile"
+                    ? "#1ACAA6"
+                    : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}

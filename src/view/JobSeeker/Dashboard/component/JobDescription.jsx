@@ -134,7 +134,7 @@ const JobDescription = () => {
             </div>
             <div>Or</div>
             <div>
-              <DragDrop onFileSelect={setFile} />
+              <DragDrop onFileSelect={setFile} accept={["application/pdf"]} />
             </div>
             <div className="flex justify-between">
               <button className="p-5 bg-[#1ACAA626] text-[#1ACAA6] rounded-lg">

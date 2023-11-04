@@ -57,7 +57,7 @@ function SelectField({
       <label
         htmlFor={`input-${name}`}
         className={`text-xs mb-2.5 ${
-          isDisabled ? "text-gray-300" : "text-black"
+          isDisabled ? "text-gray-300" : "text-black text-opacity-[50%] text-xs"
         }`}
       >
         {label}
@@ -67,7 +67,7 @@ function SelectField({
           type="button"
           className={`${
             selectedOption ? "text-xs" : "text-xs text-gray-300"
-          } w-full border rounded-xl text-left px-4 py-4 bg-[#ffffff] bg-opacity-10`}
+          } w-full border rounded-xl text-left px-4 py-4 bg-[#ffffff] border-[#000000] border-opacity-[10%]`}
           onClick={handleToggleDropdown}
           value={selectedOption ? selectedOption.label : placeholder}
         />

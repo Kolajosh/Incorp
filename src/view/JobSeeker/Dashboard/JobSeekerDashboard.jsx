@@ -3,6 +3,7 @@ import SideBar from "./component/SideBar";
 import Navbar from "./component/Navbar";
 import JobHome from "./component/JobHome";
 import { useSelector } from "react-redux";
+import Profile from "./component/Profile";
 
 const JobSeekerDashboard = () => {
   const userData = useSelector((state) => state?.auth?.data);

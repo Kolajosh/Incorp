@@ -53,7 +53,11 @@ export const TextInput = forwardRef(
             <label
               htmlFor={`input-${name}`}
               className={`font-semibold mb-2.5
-                          ${isDisabled ? "text-gray-300" : "text-black text-opacity-[50%] text-xs"}`}
+                          ${
+                            isDisabled
+                              ? "text-gray-300"
+                              : "text-black text-opacity-[50%] text-xs"
+                          }`}
             >
               {label}
             </label>
@@ -85,7 +89,7 @@ export const TextInput = forwardRef(
           name={name}
           type={type}
           className={` 
-        focus:outline-none text-sm text-black border border-[#000000] border-opacity-[50%] z-2 bg-[#ffffff]  ovtline-none placeholder:text-xs placeholder:text-[#939393] rounded-xl
+        focus:outline-none text-sm text-black border border-[#000000] border-opacity-[10%] z-2 bg-[#ffffff]  ovtline-none placeholder:text-xs placeholder:text-[#939393] rounded-xl
         ${icon?.active && "px-12"} 
         ${
           isDisabled

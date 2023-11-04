@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import { ReactComponent as Dnd } from "../../assets/svg/dnd.svg";
 import { ToastNotify } from "../reusables/helpers/ToastNotify";
 
-const DragDrop = ({ onFileSelect }) => {
+const DragDrop = ({ onFileSelect, accept }) => {
+  // Accept prop specifies the accepted file types
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -56,19 +57,19 @@ const DragDrop = ({ onFileSelect }) => {
       return;
     }
 
-    // Check file type
-    if (file.type !== "application/pdf") {
-      // File is not a PDF
+    // Check file type based on the accept prop
+    if (!accept.includes(file.type)) {
+      // File type is not allowed
       ToastNotify({
         type: "warning",
-        message: "Only PDF files are allowed.",
+        message: `Only ${accept.join(", ")} files are allowed.`,
         position: "top-right",
       });
       setSelectedFile(null);
       return;
     }
 
-    // If all checks pass, handle the valid PDF file
+    // If all checks pass, handle the valid file
     setSelectedFile(file);
     onFileSelect(file); // Call the callback function with the selected file
   };
@@ -104,17 +105,21 @@ const DragDrop = ({ onFileSelect }) => {
             <div className="flex justify-center mb-3">
               <Dnd />
             </div>
-            <div className="text-lg text-black">
+            <div className="text-sm text-black">
               <span
-                className="text-[#000] text-lg font-semibold cursor-pointer"
+                className="text-[#000] text-sm font-semibold cursor-pointer"
                 onClick={handleUpload}
               >
-                Browse File
+                {accept?.includes("image/png") || accept?.includes("image/jpg")
+                  ? "Browse Image"
+                  : "Browse File"}
               </span>{" "}
               <span>Or drop here</span>
             </div>
-            <div className="font-medium mt-3">
-              Only PDF format. Max file size 12MB
+            <div className="px-4 font-medium text-sm mt-3">
+              {accept?.includes("image/png") || accept?.includes("image/jpg")
+                ? "A photo lager than 400 pixels work best. Max photo size 5MB."
+                : "Only PDF format. Max file size 12MB"}
             </div>
             <input
               id="file-upload"
@@ -122,6 +127,7 @@ const DragDrop = ({ onFileSelect }) => {
               ref={fileInputRef}
               className="hidden"
               onChange={handleFileInputChange}
+              accept={accept?.join(",")} // Set the accepted file types based on the accept prop
             />
           </div>
         )}
