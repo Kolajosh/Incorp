@@ -103,15 +103,21 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
             Messages
           </div>
           <div
-            onClick={() => setSelectedMenu("Overview")}
+            onClick={() => {
+              setSelectedMenu("Overview");
+              navigate("/dashboard/jobseeker/overview");
+            }}
             className={`flex cursor-pointer items-center gap-3 ${
-              selectedMenu === "Overview" &&
+              window.location.pathname === "/dashboard/jobseeker/overview" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Overview
               style={{
-                stroke: selectedMenu === "Overview" ? "#1ACAA6" : "#FFFFFF", // Set the fill color based on the selected state
+                stroke:
+                  window.location.pathname === "/dashboard/jobseeker/overview"
+                    ? "#1ACAA6"
+                    : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}

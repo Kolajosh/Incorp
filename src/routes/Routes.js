@@ -7,6 +7,7 @@ import LandingPage from "../view/JobSeeker/LandingPage/LandingPage";
 import JobSeekerDashboard from "../view/JobSeeker/Dashboard/JobSeekerDashboard";
 import JobDetails from "../view/JobSeeker/Dashboard/JobDetails";
 import JobSeekerProfile from "../view/JobSeeker/Dashboard/JobSeekerProfile";
+import JobSeekerOverview from "../view/JobSeeker/Dashboard/JobSeekerOverview";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +25,10 @@ const AppRoutes = () => {
       <Route
         path="/dashboard/jobseeker/profile"
         element={<JobSeekerProfile />}
+      />
+      <Route
+        path="/dashboard/jobseeker/overview"
+        element={<JobSeekerOverview />}
       />
     </Routes>
   );

@@ -12,10 +12,9 @@ import Personal from "./component/Personal";
 import Social from "./component/Social";
 import AccountSettings from "./component/AccountSettings";
 
-const JobSeekerProfile = () => {
+const JobSeekerOverview = () => {
   const userData = useSelector((state) => state?.auth?.data);
   const [selectedMenu, setSelectedMenu] = useState("Home");
-  const [selectedNav, setSelectedNav] = useState("Profile");
 
   return (
     <>
@@ -37,17 +36,7 @@ const JobSeekerProfile = () => {
           </div>
 
           <div>
-            <ProfileNavigator
-              selectedNav={selectedNav}
-              setSelectedNav={setSelectedNav}
-            />
-          </div>
-
-          <div>
-            {selectedNav === "Profile" && <Profile />}
-            {selectedNav === "Personal" && <Personal />}
-            {selectedNav === "Social" && <Social />}
-            {selectedNav === "Settings" && <AccountSettings />}
+            
           </div>
 
           {/* footer */}
@@ -64,4 +53,4 @@ const JobSeekerProfile = () => {
   );
 };
 
-export default JobSeekerProfile;
+export default JobSeekerOverview;
