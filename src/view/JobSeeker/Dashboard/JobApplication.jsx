@@ -5,17 +5,13 @@ import Navbar from "./component/Navbar";
 import { TextInput } from "../../../components/reusables/TextInput";
 import { CustomButton } from "../../../components/buttons/CustomButton";
 import { ReactComponent as CompanyIcon } from "../../../assets/svg/company-icon.svg";
-import JobDescription from "./component/JobDescription";
-import ProfileNavigator from "./component/ProfileNavigator";
-import Profile from "./component/Profile";
-import Personal from "./component/Personal";
-import Social from "./component/Social";
-import AccountSettings from "./component/AccountSettings";
-import Overview from "./component/Overview";
+import ApplicationNavigator from "./component/ApplicationNavigator";
+import TableData from "./component/JobApplication/TableData";
 
-const JobSeekerOverview = () => {
+const JobApplication = () => {
   const userData = useSelector((state) => state?.auth?.data);
   const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [selectedNav, setSelectedNav] = useState("All");
 
   return (
     <>
@@ -36,7 +32,16 @@ const JobSeekerOverview = () => {
             </div>
           </div>
 
-          <div>{selectedMenu === "Overview" && <Overview userData={userData} />}</div>
+          <div>
+            <ApplicationNavigator
+              selectedNav={selectedNav}
+              setSelectedNav={setSelectedNav}
+            />
+          </div>
+
+          <div>
+            <TableData />
+          </div>
 
           {/* footer */}
           <div className="mt-20 mb-5 space-y-3">
@@ -52,4 +57,4 @@ const JobSeekerOverview = () => {
   );
 };
 
-export default JobSeekerOverview;
+export default JobApplication;

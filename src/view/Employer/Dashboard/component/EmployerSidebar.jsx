@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../../Redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ selectedMenu, setSelectedMenu }) => {
+const EmployerSidebar = ({ selectedMenu, setSelectedMenu }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -29,39 +29,39 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
           <div
             onClick={() => {
               setSelectedMenu("Home");
-              navigate("/dashboard/jobseeker");
+              navigate("/dashboard/employer");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
-              window?.location?.pathname === "/dashboard/jobseeker" &&
+              window?.location?.pathname === "/dashboard/employer" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Home
               style={{
                 fill:
-                  window?.location?.pathname === "/dashboard/jobseeker"
+                  window?.location?.pathname === "/dashboard/employer"
                     ? "#1ACAA6"
                     : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}
             />
-            Home
+            Jobs
           </div>
           <div
             onClick={() => {
               setSelectedMenu("Profile");
-              navigate("/dashboard/jobseeker/profile");
+              navigate("/dashboard/employer/profile");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
-              window?.location?.pathname === "/dashboard/jobseeker/profile" &&
+              window?.location?.pathname === "/dashboard/employer/profile" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Profile
               style={{
                 fill:
-                  window?.location?.pathname === "/dashboard/jobseeker/profile"
+                  window?.location?.pathname === "/dashboard/employer/profile"
                     ? "#1ACAA6"
                     : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
@@ -73,18 +73,17 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
           <div
             onClick={() => {
               setSelectedMenu("Application");
-              navigate("/dashboard/jobseeker/application");
+              navigate("/dashboard/employer/application");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
-              window.location.pathname === "/dashboard/jobseeker/application" &&
+              window.location.pathname === "/dashboard/employer/application" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <App
               style={{
                 fill:
-                  window.location.pathname ===
-                  "/dashboard/jobseeker/application"
+                  window.location.pathname === "/dashboard/employer/application"
                     ? "#1ACAA6"
                     : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
@@ -94,35 +93,37 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
             Application
           </div>
           <div
-            onClick={() => setSelectedMenu("Messages")}
+            onClick={() => {setSelectedMenu("Post")
+            navigate("/dashboard/employer/post")
+        }}
             className={`flex cursor-pointer items-center gap-3 ${
-              selectedMenu === "Messages" &&
+              selectedMenu === "Post" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Message
               style={{
-                stroke: selectedMenu === "Messages" ? "#1ACAA6" : "#FFFFFF", // Set the fill color based on the selected state
+                stroke: selectedMenu === "Post" ? "#1ACAA6" : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}
             />
-            Messages
+            Post a Job
           </div>
           <div
             onClick={() => {
               setSelectedMenu("Overview");
-              navigate("/dashboard/jobseeker/overview");
+              navigate("/dashboard/employer/overview");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
-              window.location.pathname === "/dashboard/jobseeker/overview" &&
+              window.location.pathname === "/dashboard/employer/overview" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <Overview
               style={{
                 stroke:
-                  window.location.pathname === "/dashboard/jobseeker/overview"
+                  window.location.pathname === "/dashboard/employer/overview"
                     ? "#1ACAA6"
                     : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
@@ -144,4 +145,4 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
   );
 };
 
-export default SideBar;
+export default EmployerSidebar;

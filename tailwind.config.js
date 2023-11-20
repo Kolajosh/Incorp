@@ -3,6 +3,13 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
+      animation: {
+        grow: "grow 1s linear infinite",
+        "grow-2": "grow 2s linear infinite",
+        "grow-3": "grow 3s linear infinite",
+        "spin-2": "spin 2s linear infinite",
+        "spin-3": "spin 3s linear infinite",
+      },
       colors: {},
       fontFamily: {
         orbitron: ["Orbitron", "sans-serif"],

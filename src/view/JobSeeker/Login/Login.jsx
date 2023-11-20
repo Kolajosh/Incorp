@@ -45,12 +45,17 @@ const Login = () => {
             message: responseMessageHandler({ response }),
             position: "top-right",
           });
+          localStorage.setItem("token", response?.data?.data?.accessToken);
           dispatch(loginSuccess(response?.data?.data));
-
-          console.log(role);
 
           if (role === "Applicant") {
             navigate("/dashboard/jobseeker");
+          }
+          if (role === "Admin") {
+            navigate("/dashboard/admin");
+          }
+          if (role === "Recruiter") {
+            navigate("/dashboard/employer");
           }
         }
       } catch (error) {

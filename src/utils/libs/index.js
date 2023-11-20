@@ -63,6 +63,9 @@ export const responseMessageHandler = ({ response, error }) => {
     if (error?.response?.data?.errors) {
       return error?.response?.data?.errors?.join(", ");
     }
+    if (error?.response?.data?.errors?.request) {
+      return error?.response?.data?.errors?.request?.join(", ");
+    }
     if (error?.response?.data?.messages?.length) {
       return error?.response?.data?.messages?.join(", ");
     }

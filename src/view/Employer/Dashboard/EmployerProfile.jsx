@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import SideBar from "./component/SideBar";
-import Navbar from "./component/Navbar";
 import { TextInput } from "../../../components/reusables/TextInput";
 import { CustomButton } from "../../../components/buttons/CustomButton";
 import { ReactComponent as CompanyIcon } from "../../../assets/svg/company-icon.svg";
-import JobDescription from "./component/JobDescription";
-import ProfileNavigator from "./component/ProfileNavigator";
-import Profile from "./component/Profile";
-import Personal from "./component/Personal";
-import Social from "./component/Social";
-import AccountSettings from "./component/AccountSettings";
-import Overview from "./component/Overview";
+import EmployerNavigator from "./component/EmployerNavigator";
+import EmployerSocial from "./component/EmployerSocial";
+import EmployerInfo from "./component/EmployerInfo";
+import FoundingInfo from "./component/FoundingInfo";
+import EmployerSettings from "./component/EmployerSettings";
+import EmployerSidebar from "./component/EmployerSidebar";
+import Navbar from "../../JobSeeker/Dashboard/component/Navbar";
 
-const JobSeekerOverview = () => {
+const EmployerProfile = () => {
   const userData = useSelector((state) => state?.auth?.data);
   const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [selectedNav, setSelectedNav] = useState("Profile");
 
   return (
     <>
       <div className="grid grid-cols-6">
         <div className="col-span-1">
-          <SideBar
+          <EmployerSidebar
             selectedMenu={selectedMenu}
             setSelectedMenu={setSelectedMenu}
           />
@@ -36,7 +35,19 @@ const JobSeekerOverview = () => {
             </div>
           </div>
 
-          <div>{selectedMenu === "Overview" && <Overview userData={userData} />}</div>
+          <div>
+            <EmployerNavigator
+              selectedNav={selectedNav}
+              setSelectedNav={setSelectedNav}
+            />
+          </div>
+
+          <div>
+            {selectedNav === "Profile" && <EmployerInfo />}
+            {selectedNav === "Personal" && <FoundingInfo />}
+            {selectedNav === "Social" && <EmployerSocial />}
+            {selectedNav === "Settings" && <EmployerSettings />}
+          </div>
 
           {/* footer */}
           <div className="mt-20 mb-5 space-y-3">
@@ -52,4 +63,4 @@ const JobSeekerOverview = () => {
   );
 };
 
-export default JobSeekerOverview;
+export default EmployerProfile;

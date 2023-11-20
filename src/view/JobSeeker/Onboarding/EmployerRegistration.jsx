@@ -6,9 +6,67 @@ import { ReactComponent as Fb } from "../../../assets/svg/fb.svg";
 import { TextInput } from "../../../components/reusables/TextInput";
 import { CustomButton } from "../../../components/buttons/CustomButton";
 import { useNavigate } from "react-router-dom";
+import useApiRequest from "../../../utils/hooks/useApiRequest";
+import { useFormik } from "formik";
+import { ToastNotify } from "../../../components/reusables/helpers/ToastNotify";
+import { employerRegistrationUrl } from "../../../utils/apiURLs/requests";
+import { responseMessageHandler } from "../../../utils/libs";
+import { employerRegValidationSchema } from "../../../utils/validationSchema/employerReg.validations";
 
 const EmployerRegistration = () => {
   const navigate = useNavigate();
+  const makeRequest = useApiRequest();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      companyName: "",
+      registrationNumber: "",
+      password: "",
+      password2: "",
+    },
+
+    onSubmit: async () => {
+      const payload = {
+        companyRegistrationNumber: values?.registrationNumber,
+        companyEmail: values?.email,
+        companyName: values?.companyName,
+        password: values?.password,
+      };
+      try {
+        const response = await makeRequest.post(
+          employerRegistrationUrl,
+          payload
+        );
+        if (response?.status === 200) {
+          ToastNotify({
+            type: "success",
+            message: "Registered Successfully, Proceed to Login",
+            position: "top-right",
+          });
+          navigate("/register/employer/pending");
+        }
+      } catch (error) {
+        ToastNotify({
+          type: "error",
+          message: responseMessageHandler({ error }),
+          position: "top-right",
+        });
+      }
+    },
+
+    validationSchema: employerRegValidationSchema,
+  });
+
+  const {
+    handleSubmit,
+    handleChange,
+    errors,
+    values,
+    handleBlur,
+    touched,
+    isValid,
+  } = formik;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
       {/* image */}
@@ -28,19 +86,60 @@ const EmployerRegistration = () => {
           Or
         </div>
         <div className="space-y-5 w-full">
-          <TextInput label="Email" />
+          <TextInput
+            label="Email"
+            name="email"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors?.email}
+            hasError={errors?.email}
+            values={values?.email}
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
-            <TextInput label="Company's Name" />
-            <TextInput label="Registration Number" />
+            <TextInput
+              label="Company's Name"
+              name="companyName"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors?.companyName}
+              hasError={errors?.companyName}
+              values={values?.companyName}
+            />
+            <TextInput
+              label="Registration Number"
+              name="registrationNumber"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              error={errors?.registrationNumber}
+              hasError={errors?.registrationNumber}
+              values={values?.registrationNumber}
+            />
           </div>
-          <TextInput label="Password" />
-          <TextInput label="Re-enter Password" />
+          <TextInput
+            label="Password"
+            name="password"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors?.password}
+            hasError={errors?.password}
+            values={values?.password}
+          />
+          <TextInput
+            label="Re-enter Password"
+            name="password2"
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors?.password2}
+            hasError={errors?.password2}
+            values={values?.password2}
+          />
         </div>
         <div className="w-full">
           <CustomButton
-            labelText={"Log In"}
+            labelText={"Sign Up"}
             containerVariant="py-2 px-5 w-full rounded-xl flex justify-center"
             buttonVariant="primary"
+            handleClick={() => handleSubmit()}
           />
         </div>
         {/* <div className="text-black font-bold text-sm ">Reset Password</div> */}

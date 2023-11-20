@@ -26,7 +26,6 @@ const JobSeekerRegister = () => {
     },
 
     onSubmit: async () => {
-      console.log(values);
       const payload = {
         firstName: values?.firstName,
         lastName: values?.lastName,
