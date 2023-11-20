@@ -4,6 +4,8 @@ import Navbar from "./component/Navbar";
 import JobHome from "./component/JobHome";
 import { useSelector } from "react-redux";
 import Profile from "./component/Profile";
+import useJobseekerRequests from "./hooks/useJobseekerRequests";
+import { useEffect } from "react";
 
 const JobSeekerDashboard = () => {
   const userData = useSelector((state) => state?.auth?.data);
@@ -23,7 +25,7 @@ const JobSeekerDashboard = () => {
             <Navbar title={selectedMenu} userData={userData} />
           </div>
           <div>
-            <JobHome />
+            <JobHome/>
           </div>
         </div>
       </div>

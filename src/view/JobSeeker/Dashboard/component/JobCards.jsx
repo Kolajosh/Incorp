@@ -6,29 +6,31 @@ import { ReactComponent as People } from "../../../../assets/svg/fluent_people-2
 import { jobCardDetails } from "./constants";
 import { useNavigate } from "react-router-dom";
 
-const JobCards = () => {
+const JobCards = ({ jobs }) => {
   const navigate = useNavigate();
   return (
     <>
       <div className="mb-8"></div>
       <div className="grid grid-cols-3 gap-5">
-        {jobCardDetails?.map((x) => (
+        {jobs?.map((x) => (
           <div
-            onClick={() => navigate("/dashboard/jobseeker/job-details/1234")}
+            onClick={() =>
+              navigate(`/dashboard/jobseeker/job-details/${x?.id}`, {
+                state: { jobDetails: x },
+              })
+            }
             className="bg-white cursor-pointer rounded-xl p-3"
           >
             <div className="flex items-center gap-5">
-              <div>
+              {/* <div>
                 <CompanyIcon />
-              </div>
+              </div> */}
               <div>
-                <div>3D Illustrator for Sensei</div>
+                <div>{x?.title}</div>
                 <div>Panda LTD</div>
               </div>
             </div>
-            <div className="text-sm">
-              We.re looking for top illustrators proficient with mutiple tools.
-            </div>
+            <div className="text-sm">{x?.description}</div>
             <div className="text-sm flex justify-between mt-5 items-center">
               <div className="flex items-center gap-3">
                 <span>
@@ -40,7 +42,7 @@ const JobCards = () => {
                 <span>
                   <Locay />
                 </span>
-                <span>Ajah, Lagos</span>
+                <span>{x?.country}</span>
               </div>
               <div>
                 <span>

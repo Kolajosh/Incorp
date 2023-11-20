@@ -11,3 +11,7 @@ export const VerifyUser = "/Admin/verify-recruiter";
 //employer
 export const CreateProfile = "/Recruiter/create-profile";
 export const CreateJob = "/Recruiter/Create-Job";
+
+//jobseeker
+export const GetAllJobs = "/Applicant/active-jobs";
+

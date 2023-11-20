@@ -3,8 +3,16 @@ import { TextInput } from "../../../../components/reusables/TextInput";
 import { CustomButton } from "../../../../components/buttons/CustomButton";
 import FilterComponent from "./FilterComponent";
 import JobCards from "./JobCards";
+import { useEffect } from "react";
+import useJobseekerRequests from "../hooks/useJobseekerRequests";
 
 const JobHome = () => {
+  const { getAllJobs, jobs } = useJobseekerRequests();
+
+  useEffect(() => {
+    getAllJobs();
+  }, []);
+
   return (
     <>
       <div className="px-5">
@@ -20,7 +28,7 @@ const JobHome = () => {
             <FilterComponent />
           </div>
           <div className="col-span-3">
-            <JobCards />
+            <JobCards jobs={jobs} />
           </div>
         </div>
       </div>

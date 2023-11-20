@@ -10,8 +10,9 @@ import CenterModal from "../../../../components/Modal/CenterModal";
 import SelectField from "../../../../components/reusables/SelectField";
 import DragDrop from "../../../../components/DnD/DragDrop";
 import { CustomButton } from "../../../../components/buttons/CustomButton";
+import dayjs from "dayjs";
 
-const JobDescription = () => {
+const JobDescription = ({ jobDetails }) => {
   const cvs = [
     { value: "Cv1", label: "Cv1" },
     { value: "Cv2", label: "Cv2" },
@@ -45,15 +46,17 @@ const JobDescription = () => {
         <div className="p-5 border-2 rounded-lg w-10/12 bg-white border-[#E7F0FA] flex items-center gap-10 justify-between">
           <div className="text-center space-y-3 ">
             <div className="text-lg font-semibold">Salary (Naira)</div>
-            <div className="text-xl font-semibold">3,000,000 - 4,500,000</div>
-            <div className="text-lg">Yearly salary</div>
+            <div className="text-xl font-semibold">
+              {jobDetails?.minSalary} - {jobDetails?.maxSalary}
+            </div>
+            <div className="text-lg">{jobDetails?.salaryStructure}</div>
           </div>
           <div className="text-center space-y-3">
             <div className="flex justify-center">
               <Map />
             </div>
             <div className="text-xl font-semibold">Job Location</div>
-            <div className="text-lg">Ikeja, Lagos</div>
+            <div className="text-lg">{jobDetails?.country}</div>
           </div>
         </div>
       </div>
@@ -66,7 +69,7 @@ const JobDescription = () => {
               <div className="text-center space-y-2 ">
                 <Calendar />
                 <div className="text-md font-medium text-left">Job Posted</div>
-                <div className="text-lg text-left">14 Jun, 2023</div>
+                <div className="text-lg text-left">{dayjs(jobDetails?.dateCreated).format('DD MMM, YYYY')}</div>
               </div>
 
               <div className="text-center space-y-2 ">
@@ -74,7 +77,7 @@ const JobDescription = () => {
                 <div className="text-md font-medium text-left">
                   Job Expire In
                 </div>
-                <div className="text-lg text-left">14 Aug, 2023</div>
+                <div className="text-lg text-left">{dayjs(jobDetails?.expirationDate).format('DD MMM, YYYY')}</div>
               </div>
 
               <div className="text-center space-y-2 ">
