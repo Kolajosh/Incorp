@@ -13,7 +13,7 @@ import { CustomButton } from "../../../../components/buttons/CustomButton";
 import dayjs from "dayjs";
 import useApiRequest from "../../../../utils/hooks/useApiRequest";
 import { useSelector } from "react-redux";
-import { UploadDoc } from "../../../../utils/apiURLs/requests";
+import { ApplyJob, UploadDoc } from "../../../../utils/apiURLs/requests";
 import { ToastNotify } from "../../../../components/reusables/helpers/ToastNotify";
 import { responseMessageHandler } from "../../../../utils/libs";
 import useToggle from "../../../../utils/hooks/useToggle";
@@ -33,45 +33,73 @@ const JobDescription = ({ jobDetails }) => {
     { value: "Cv3", label: "Cv3" },
   ];
 
-  const handleUpload = async () => {
+  const handleApplyJob = async () => {
     toggleLoading();
-  
-    const formData = new FormData();
-    formData.append("UploadedFile", file);
-  
-    // Append other necessary fields to the FormData
-    formData.append("FileType", "1");
-    formData.append("SignedInEmail", userData?.email);
-  
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+    const payload = {
+      jobPosterEmail: jobDetails?.jobPosterEmail,
+      jobId: jobDetails?.id,
+      signedInEmail: userData?.email,
     };
-  
+
     try {
-      const response = await makeRequest.post(UploadDoc, formData, config);
-      console.log(response);
+      const response = await makeRequest.post(ApplyJob, payload);
       toggleLoading();
-  
       if (response?.status === 200) {
         ToastNotify({
           type: "success",
-          message: responseMessageHandler({ response }),
+          message: "Applied",
           position: "top-right",
         });
       }
     } catch (error) {
       toggleLoading();
-  
       ToastNotify({
         type: "error",
-        message: "An error occurred",
+        message: "Can't Apply for job",
         position: "top-right",
       });
     }
   };
-  
+
+  const handleUpload = async () => {
+    toggleLoading();
+
+    const formData = new FormData();
+    formData.append("UploadedFile", file);
+
+    // Append other necessary fields to the FormData
+    formData.append("FileType", "1");
+    formData.append("SignedInEmail", userData?.email);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    try {
+      const response = await makeRequest.post(UploadDoc, formData, config);
+      console.log(response);
+      toggleLoading();
+
+      if (response?.status === 200) {
+        ToastNotify({
+          type: "success",
+          message: "Upload success, applying for job...",
+          position: "top-right",
+        });
+        handleApplyJob();
+      }
+    } catch (error) {
+      toggleLoading();
+      ToastNotify({
+        type: "error",
+        message: "An error occurred, try again",
+        position: "top-right",
+      });
+    }
+  };
+
   return (
     <>
       {loading && <PageLoader />}

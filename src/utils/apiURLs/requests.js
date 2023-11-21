@@ -14,6 +14,7 @@ export const CreateJob = "/Recruiter/Create-Job";
 
 //jobseeker
 export const GetAllJobs = "/Applicant/active-jobs";
+export const ApplyJob = "/Applicant/apply-Job";
 
 //shared
 export const UploadDoc = "/Shared/upload-file";
