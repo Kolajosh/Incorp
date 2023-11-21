@@ -15,3 +15,5 @@ export const CreateJob = "/Recruiter/Create-Job";
 //jobseeker
 export const GetAllJobs = "/Applicant/active-jobs";
 
+//shared
+export const UploadDoc = "/Shared/upload-file";

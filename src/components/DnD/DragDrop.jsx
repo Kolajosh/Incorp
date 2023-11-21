@@ -119,7 +119,7 @@ const DragDrop = ({ onFileSelect, accept }) => {
             <div className="px-4 font-medium text-sm mt-3">
               {accept?.includes("image/png") || accept?.includes("image/jpg")
                 ? "A photo lager than 400 pixels work best. Max photo size 5MB."
-                : "Only PDF format. Max file size 12MB"}
+                : "Only Doc format. Max file size 12MB"}
             </div>
             <input
               id="file-upload"

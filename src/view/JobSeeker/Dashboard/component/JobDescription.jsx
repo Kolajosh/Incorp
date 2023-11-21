@@ -11,19 +11,70 @@ import SelectField from "../../../../components/reusables/SelectField";
 import DragDrop from "../../../../components/DnD/DragDrop";
 import { CustomButton } from "../../../../components/buttons/CustomButton";
 import dayjs from "dayjs";
+import useApiRequest from "../../../../utils/hooks/useApiRequest";
+import { useSelector } from "react-redux";
+import { UploadDoc } from "../../../../utils/apiURLs/requests";
+import { ToastNotify } from "../../../../components/reusables/helpers/ToastNotify";
+import { responseMessageHandler } from "../../../../utils/libs";
+import useToggle from "../../../../utils/hooks/useToggle";
+import PageLoader from "../../../../components/PageLoader";
 
 const JobDescription = ({ jobDetails }) => {
+  const userData = useSelector((state) => state?.auth?.data);
+  const makeRequest = useApiRequest();
+  const [loading, toggleLoading] = useToggle();
+
+  const [file, setFile] = useState("");
+  const [modal, toggleModal] = useState(false);
+
   const cvs = [
     { value: "Cv1", label: "Cv1" },
     { value: "Cv2", label: "Cv2" },
     { value: "Cv3", label: "Cv3" },
   ];
 
-  const [file, setFile] = useState("");
-  const [modal, toggleModal] = useState(false);
-  console.log(file);
+  const handleUpload = async () => {
+    toggleLoading();
+  
+    const formData = new FormData();
+    formData.append("UploadedFile", file);
+  
+    // Append other necessary fields to the FormData
+    formData.append("FileType", "1");
+    formData.append("SignedInEmail", userData?.email);
+  
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+  
+    try {
+      const response = await makeRequest.post(UploadDoc, formData, config);
+      console.log(response);
+      toggleLoading();
+  
+      if (response?.status === 200) {
+        ToastNotify({
+          type: "success",
+          message: responseMessageHandler({ response }),
+          position: "top-right",
+        });
+      }
+    } catch (error) {
+      toggleLoading();
+  
+      ToastNotify({
+        type: "error",
+        message: "An error occurred",
+        position: "top-right",
+      });
+    }
+  };
+  
   return (
     <>
+      {loading && <PageLoader />}
       <div className="flex justify-end gap-5">
         <div className="p-5 rounded-lg bg-[#DDEFEC]">
           <Bookmark
@@ -69,7 +120,9 @@ const JobDescription = ({ jobDetails }) => {
               <div className="text-center space-y-2 ">
                 <Calendar />
                 <div className="text-md font-medium text-left">Job Posted</div>
-                <div className="text-lg text-left">{dayjs(jobDetails?.dateCreated).format('DD MMM, YYYY')}</div>
+                <div className="text-lg text-left">
+                  {dayjs(jobDetails?.dateCreated).format("DD MMM, YYYY")}
+                </div>
               </div>
 
               <div className="text-center space-y-2 ">
@@ -77,7 +130,9 @@ const JobDescription = ({ jobDetails }) => {
                 <div className="text-md font-medium text-left">
                   Job Expire In
                 </div>
-                <div className="text-lg text-left">{dayjs(jobDetails?.expirationDate).format('DD MMM, YYYY')}</div>
+                <div className="text-lg text-left">
+                  {dayjs(jobDetails?.expirationDate).format("DD MMM, YYYY")}
+                </div>
               </div>
 
               <div className="text-center space-y-2 ">
@@ -132,18 +187,29 @@ const JobDescription = ({ jobDetails }) => {
           title={"Apply: UI/UX Designer"}
         >
           <div className="space-y-5">
-            <div>
+            {/* <div>
               <SelectField options={cvs} />
-            </div>
-            <div>Or</div>
+            </div> */}
+            {/* <div>Or</div> */}
             <div>
-              <DragDrop onFileSelect={setFile} accept={["application/pdf"]} />
+              <DragDrop
+                onFileSelect={setFile}
+                accept={[
+                  ".doc",
+                  ".docx",
+                  "application/msword",
+                  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                ]}
+              />
             </div>
             <div className="flex justify-between">
               <button className="p-5 bg-[#1ACAA626] text-[#1ACAA6] rounded-lg">
                 Cancel
               </button>
-              <button className="p-5 bg-[#1ACAA6] text-[#fff] rounded-lg">
+              <button
+                onClick={() => handleUpload()}
+                className="p-5 bg-[#1ACAA6] text-[#fff] rounded-lg"
+              >
                 Apply
               </button>
             </div>
