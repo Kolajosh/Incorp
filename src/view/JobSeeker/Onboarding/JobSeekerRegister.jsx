@@ -12,8 +12,11 @@ import useApiRequest from "../../../utils/hooks/useApiRequest";
 import { jobSeekerRegistrationUrl } from "../../../utils/apiURLs/requests";
 import { ToastNotify } from "../../../components/reusables/helpers/ToastNotify";
 import { responseMessageHandler } from "../../../utils/libs";
+import useToggle from "../../../utils/hooks/useToggle";
+import PageLoader from "../../../components/PageLoader";
 
 const JobSeekerRegister = () => {
+  const [loading, toggleLoading] = useToggle();
   const navigate = useNavigate();
   const makeRequest = useApiRequest();
   const formik = useFormik({
@@ -26,6 +29,7 @@ const JobSeekerRegister = () => {
     },
 
     onSubmit: async () => {
+      toggleLoading();
       const payload = {
         firstName: values?.firstName,
         lastName: values?.lastName,
@@ -37,6 +41,8 @@ const JobSeekerRegister = () => {
           jobSeekerRegistrationUrl,
           payload
         );
+        toggleLoading();
+
         if (response?.status === 200) {
           ToastNotify({
             type: "success",
@@ -45,6 +51,7 @@ const JobSeekerRegister = () => {
           });
         }
       } catch (error) {
+        toggleLoading();
         ToastNotify({
           type: "error",
           message: responseMessageHandler({ error }),
@@ -68,6 +75,7 @@ const JobSeekerRegister = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
+      {loading && <PageLoader />}
       {/* image */}
       <div className="md:max-h-screen w-full">
         <img className="object-contain h-full" src={Img} alt="Incorp" />

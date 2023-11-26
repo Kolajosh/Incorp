@@ -9,8 +9,11 @@ import { ReactComponent as Logout } from "../../../../assets/svg/logout-icon.svg
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../Redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const SideBar = ({ selectedMenu, setSelectedMenu }) => {
+  const isBelowMd = useMediaQuery({ maxWidth: 768 }); // Set the max width for medium screens
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -23,7 +26,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
       <div>
         <div className="text-xl font-semibold flex items-center gap-3">
           <Dashboard />
-          Dashboard
+          {isBelowMd ? null : "Dashboard"}
         </div>
         <div className="mt-5 space-y-5 text-md">
           <div
@@ -46,7 +49,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Home
+            {isBelowMd ? null : "Home"}
           </div>
           <div
             onClick={() => {
@@ -68,7 +71,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Profile
+            {isBelowMd ? null : "Profile"}
           </div>
           <div
             onClick={() => {
@@ -91,7 +94,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Application
+            {isBelowMd ? null : "Application"}{" "}
           </div>
           <div
             onClick={() => setSelectedMenu("Messages")}
@@ -107,7 +110,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Messages
+            {isBelowMd ? null : "Messagee"}
           </div>
           <div
             onClick={() => {
@@ -129,7 +132,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Overview
+            {isBelowMd ? null : "Overview"}
           </div>
         </div>
       </div>
@@ -138,7 +141,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
         className="flex cursor-pointer items-center gap-3 mt-5 text-md"
       >
         <Logout />
-        Log Out
+        {isBelowMd ? null : "Log Out"}
       </div>
     </div>
   );

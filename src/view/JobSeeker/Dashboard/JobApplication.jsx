@@ -10,8 +10,11 @@ import TableData from "./component/JobApplication/TableData";
 
 const JobApplication = () => {
   const userData = useSelector((state) => state?.auth?.data);
+  const appliedJobs = JSON.parse(userData?.jobs);
   const [selectedMenu, setSelectedMenu] = useState("Home");
   const [selectedNav, setSelectedNav] = useState("All");
+
+  console.log(appliedJobs);
 
   return (
     <>
@@ -40,7 +43,7 @@ const JobApplication = () => {
           </div>
 
           <div>
-            <TableData />
+            <TableData appliedJobs={appliedJobs} />
           </div>
 
           {/* footer */}

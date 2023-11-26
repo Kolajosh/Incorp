@@ -25,7 +25,7 @@ const ApplicationNavigator = ({ selectedNav, setSelectedNav }) => {
             />
             All
           </div>
-          <div
+          {/* <div
             onClick={() => setSelectedNav("CvScan")}
             className={`flex cursor-pointer px-5 gap-2 items-center pb-3 border-b ${
               selectedNav === "CvScan" && "text-[#1ACAA6] border-b-[#1ACAA6]"
@@ -39,7 +39,7 @@ const ApplicationNavigator = ({ selectedNav, setSelectedNav }) => {
               }}
             />
             CV Scan
-          </div>
+          </div> */}
           <div
             onClick={() => setSelectedNav("PersonalityTest")}
             className={`flex cursor-pointer px-5 gap-2 items-center pb-3 border-b ${

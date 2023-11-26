@@ -12,8 +12,11 @@ import { ToastNotify } from "../../../components/reusables/helpers/ToastNotify";
 import { employerRegistrationUrl } from "../../../utils/apiURLs/requests";
 import { responseMessageHandler } from "../../../utils/libs";
 import { employerRegValidationSchema } from "../../../utils/validationSchema/employerReg.validations";
+import PageLoader from "../../../components/PageLoader";
+import useToggle from "../../../utils/hooks/useToggle";
 
 const EmployerRegistration = () => {
+  const [loading, toggleLoading] = useToggle();
   const navigate = useNavigate();
   const makeRequest = useApiRequest();
   const formik = useFormik({
@@ -26,6 +29,7 @@ const EmployerRegistration = () => {
     },
 
     onSubmit: async () => {
+      toggleLoading();
       const payload = {
         companyRegistrationNumber: values?.registrationNumber,
         companyEmail: values?.email,
@@ -37,6 +41,8 @@ const EmployerRegistration = () => {
           employerRegistrationUrl,
           payload
         );
+        toggleLoading();
+
         if (response?.status === 200) {
           ToastNotify({
             type: "success",
@@ -46,6 +52,7 @@ const EmployerRegistration = () => {
           navigate("/register/employer/pending");
         }
       } catch (error) {
+        toggleLoading();
         ToastNotify({
           type: "error",
           message: responseMessageHandler({ error }),
@@ -69,6 +76,7 @@ const EmployerRegistration = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
+      {loading && <PageLoader />}
       {/* image */}
       <div className="md:max-h-screen w-full">
         <img className="object-contain h-screen" src={Img} alt="Incorp" />
