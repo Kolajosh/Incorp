@@ -13,7 +13,7 @@ import PageLoader from "../../../components/PageLoader";
 const DashboardProfile = () => {
   const userData = useSelector((state) => state?.auth?.data);
   const { firstName, lastName } = userData;
-  const [selectedMenu, setSelectedMenu] = useState("Profile");
+  const [selectedMenu, setSelectedMenu] = useState("Profiles");
   const { getAllUnverifiedUsers, unverifiedUsers, verifyUser, loading } =
     useAdminRequests();
 

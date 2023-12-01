@@ -5,6 +5,7 @@ import { ReactComponent as Job3 } from "../../../../assets/svg/job3.svg";
 import { ReactComponent as Job4 } from "../../../../assets/svg/job4.svg";
 import { ReactComponent as Job5 } from "../../../../assets/svg/job5.svg";
 import { DashboardCard } from "./DashboardCard";
+import LineBarChart from "./LineBarChart";
 
 const DashboardHome = () => {
   return (
@@ -16,6 +17,10 @@ const DashboardHome = () => {
           <DashboardCard icon={<Job3 />} title="Success" value="1000" />
           <DashboardCard icon={<Job4 />} title="Company" value="1000" />
           <DashboardCard icon={<Job5 />} title="User" value="1.2M" />
+        </div>
+
+        <div className="mt-10">
+          <LineBarChart />
         </div>
       </div>
     </>

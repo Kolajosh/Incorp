@@ -1,10 +1,9 @@
 import React from "react";
 import { ReactComponent as Locay } from "../../../../../assets/svg/fluent_location-48-regular.svg";
-import Canva from "../../../../../assets/img/Canva.png";
-import dayjs from "dayjs";
 import NigerianCurrencyFormatter from "../../../../../components/reusables/NigerianCurrencyFormat";
+import dayjs from "dayjs";
 
-const TableData = ({ appliedJobs }) => {
+const CvScan = ({ appliedJobs }) => {
   return (
     <div>
       <div className="m-5 flex items-center text-[#00000099] justify-between">
@@ -22,19 +21,19 @@ const TableData = ({ appliedJobs }) => {
             <tr className="">
               <th className="py-3 pl-3 text-left">Jobs</th>
               <th className="py-3 text-center">Date Applied</th>
-              <th className="py-3 text-center">Stage</th>
+              <th className="py-3 text-center">Status</th>
               <th className="py-3 text-center">Action</th>
             </tr>
           </thead>
           {/* ... rest of the table body */}
           <tbody className="">
             {appliedJobs?.map((x, index) => (
-              <tr className="my-3">
+              <tr key={x?.currentStageId} className="my-3">
                 <td className="py-3">
                   <div className="flex items-center gap-2">
                     {/* <div>
-                      <img src={Canva} alt="" />
-                    </div> */}
+                          <img src={Canva} alt="" />
+                        </div> */}
                     <div>
                       <div className="font-semibold">{x?.title}</div>
                       <div className="flex items-center">
@@ -61,13 +60,19 @@ const TableData = ({ appliedJobs }) => {
                   </div>
                 </td>
                 <td className="text-center py-3">
-                  <div>{x?.currentStageInJob}</div>
+                  <div>
+                    {x?.jobStageStatus === 0
+                      ? "Pending"
+                      : x?.jobStageStatus === 1
+                      ? "Passed"
+                      : "Failed"}
+                  </div>
                 </td>
                 <td className="text-center py-3">
                   <div>
-                    <button className="px-4 py-2 bg-[#1ACAA6] text-[#fff] rounded-lg">
+                    {/* <button className="px-4 py-2 bg-[#1ACAA6] text-[#fff] rounded-lg">
                       View Details
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>
@@ -79,4 +84,4 @@ const TableData = ({ appliedJobs }) => {
   );
 };
 
-export default TableData;
+export default CvScan;

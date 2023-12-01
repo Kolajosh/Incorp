@@ -25,7 +25,7 @@ const ApplicationNavigator = ({ selectedNav, setSelectedNav }) => {
             />
             All
           </div>
-          {/* <div
+          <div
             onClick={() => setSelectedNav("CvScan")}
             className={`flex cursor-pointer px-5 gap-2 items-center pb-3 border-b ${
               selectedNav === "CvScan" && "text-[#1ACAA6] border-b-[#1ACAA6]"
@@ -39,16 +39,18 @@ const ApplicationNavigator = ({ selectedNav, setSelectedNav }) => {
               }}
             />
             CV Scan
-          </div> */}
+          </div>
           <div
             onClick={() => setSelectedNav("PersonalityTest")}
             className={`flex cursor-pointer px-5 gap-2 items-center pb-3 border-b ${
-              selectedNav === "PersonalityTest" && "text-[#1ACAA6] border-b-[#1ACAA6]"
+              selectedNav === "PersonalityTest" &&
+              "text-[#1ACAA6] border-b-[#1ACAA6]"
             }`}
           >
             <Persona
               style={{
-                fill: selectedNav === "PersonalityTest" ? "#1ACAA6" : "#00000080", // Set the fill color based on the selected state
+                fill:
+                  selectedNav === "PersonalityTest" ? "#1ACAA6" : "#00000080", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}

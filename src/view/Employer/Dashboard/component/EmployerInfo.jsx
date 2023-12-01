@@ -9,6 +9,7 @@ import { responseMessageHandler } from "../../../../utils/libs";
 import useToggle from "../../../../utils/hooks/useToggle";
 import { ToastNotify } from "../../../../components/reusables/helpers/ToastNotify";
 import PageLoader from "../../../../components/PageLoader";
+import { useSelector } from "react-redux";
 
 const EmployerInfo = () => {
   const [selectedNav, setSelectedNav] = useState("Profile");
@@ -16,6 +17,7 @@ const EmployerInfo = () => {
   const [file, setFile] = useState("");
   const makeRequest = useApiRequest();
   const [loading, toggleLoading] = useToggle();
+  const userData = useSelector((state) => state?.auth?.data);
 
   const formik = useFormik({
     initialValues: {
@@ -36,7 +38,7 @@ const EmployerInfo = () => {
         // twitterLink: "string",
         // linkedInLink: "string",
         // instagramLink: "string",
-        // signedInEmail: "string",
+        signedInEmail: userData?.email,
       };
       try {
         const response = await makeRequest.post(CreateProfile, payload);
@@ -68,8 +70,6 @@ const EmployerInfo = () => {
     touched,
     isValid,
   } = formik;
-
-  console.log(values?.aboutUs);
 
   return (
     <>

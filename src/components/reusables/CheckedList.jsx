@@ -25,11 +25,11 @@ const CheckedList = ({ label, items, selected, onSelect, multiSelect }) => {
             <label>
               <input
                 type="checkbox"
-                checked={selected.includes(item)}
-                onChange={() => handleItemClick(item)}
+                checked={selected.includes(item?.value)}
+                onChange={() => handleItemClick(item?.value)}
                 className="rounded-md appearance-none border-2 border-[#1ACAA6] w-5 h-5 checked:bg-[#1ACAA6]"
               />
-              <span className="ml-3 text-sm">{item}</span>
+              <span className="ml-3 text-sm">{item?.label}</span>
             </label>
           </li>
         ))}

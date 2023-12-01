@@ -30,20 +30,20 @@ const LandingPage = () => {
           </div>
           <div className="relative">
             <img className="h-[75vh] object-contain" src={navblob} alt="nav" />
-            <div className="absolute w-full mt-5 flex justify-evenly top-0 right-0">
+            <div className="absolute w-full mt-5 flex items-center justify-evenly top-0 right-0">
               <div className="cursor-pointer">Home</div>
               <div className="cursor-pointer">Categories</div>
               <div className="cursor-pointer">About Us</div>
               <div className="cursor-pointer">Contact</div>
               <div
                 onClick={() => navigate("/register/jobseeker")}
-                className="cursor-pointer"
+                className="cursor-pointer py-4 px-5 font-bold text-[#1ACAA6] bg-white rounded-lg"
               >
                 Register
               </div>
               <div
                 onClick={() => navigate("/login")}
-                className="cursor-pointer"
+                className="cursor-pointer py-4 px-5 font-bold text-[#1ACAA6] bg-white rounded-lg"
               >
                 Login
               </div>

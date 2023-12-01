@@ -97,28 +97,32 @@ const JobTechnical = ({ setJobPayload, jobPayload }) => {
       signedInEmail: userData?.email,
       stages: [
         {
+          noOfDaysInStage: 1,
           stageType: 1,
           stageDuration: 2,
-          stageProperties: JSON.stringify({
-            ...jobPayload?.properties,
+          stageProperties: JSON.stringify(jobPayload?.properties, {
             testDuration: "2:0:0",
           }),
           stageNumber: 1,
         },
         {
+          noOfDaysInStage: 1,
           stageType: 2,
           stageDuration: 2,
           stageProperties: JSON.stringify({
-            ...jobPayload?.personalityTest,
+            preferredPersonalityTypes: [
+              ...jobPayload?.preferredPersonalityTypes,
+            ],
             testDuration: "2:0:0",
           }),
           stageNumber: 2,
         },
         {
+          noOfDaysInStage: 1,
           stageType: 3,
           stageDuration: 2,
           stageProperties: JSON.stringify({
-            ...jobPayload?.technicalQuestions,
+            Questions: [...jobPayload?.technicalQuestions],
             testDuration: "2:0:0",
             passMark: passMark,
           }),
@@ -133,7 +137,9 @@ const JobTechnical = ({ setJobPayload, jobPayload }) => {
       ],
     };
 
-    console.log({ ...jobPayload?.technicalQuestions });
+    // console.log({ ...jobPayload?.technicalQuestions });
+    // console.log([...jobPayload?.technicalQuestions]);
+    // console.log(jobPayload?.technicalQuestions);
     console.log(payload);
     try {
       const response = await makeRequest.post(CreateJob, payload);

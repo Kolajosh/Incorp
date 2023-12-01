@@ -14,7 +14,7 @@ import AccountSettings from "./component/AccountSettings";
 
 const JobSeekerProfile = () => {
   const userData = useSelector((state) => state?.auth?.data);
-  const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [selectedMenu, setSelectedMenu] = useState("Profile");
   const [selectedNav, setSelectedNav] = useState("Profile");
 
   return (

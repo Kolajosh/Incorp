@@ -20,7 +20,6 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
     dispatch(logout);
     navigate("/login");
   };
-  console.log(window?.location?.pathname);
   return (
     <div className="bg-[#0A6251] w-full h-screen text-white py-5 px-5 flex flex-col justify-between">
       <div>
@@ -110,7 +109,7 @@ const SideBar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            {isBelowMd ? null : "Messagee"}
+            {isBelowMd ? null : "Message"}
           </div>
           <div
             onClick={() => {

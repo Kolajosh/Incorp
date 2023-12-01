@@ -5,13 +5,33 @@ import { useSelector } from "react-redux";
 import Canva from "../../../assets/img/Canva.png";
 import EmployerSidebar from "./component/EmployerSidebar";
 import Navbar from "../../JobSeeker/Dashboard/component/Navbar";
+import { GetCreatedJobs } from "../../../utils/apiURLs/requests";
+import { useEffect } from "react";
+import useApiRequest from "../../../utils/hooks/useApiRequest";
 
 const EmployerDashboard = () => {
+  const makeRequest = useApiRequest();
   const userData = useSelector((state) => state?.auth?.data);
   const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [jobs, setJobs] = useState([]);
 
-  const jobs = JSON?.parse(userData?.jobs);
-  console.log(JSON?.parse(userData?.jobs));
+  const getAppliedJobs = async () => {
+    try {
+      const response = await makeRequest.get(GetCreatedJobs);
+      if (response?.data?.actionMessage === "Success") {
+        setJobs(response?.data?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAppliedJobs();
+  }, []);
+
+  // const jobs = JSON?.parse(userData?.jobs);
+  console.log(jobs);
 
   return (
     <>
@@ -71,19 +91,19 @@ const EmployerDashboard = () => {
                   {/* ... rest of the table body */}
                   <tbody className="">
                     {jobs?.map((x, index) => (
-                      <tr key={x?.Id} className="my-3">
+                      <tr key={x?.id} className="my-3">
                         <td className="py-3">
                           <div className="flex items-center gap-2">
                             {/* <div>
                               <img src={Canva} alt="" />
                             </div> */}
                             <div>
-                              <div className="font-semibold">{x?.Title}</div>
+                              <div className="font-semibold">{x?.title}</div>
                             </div>
                           </div>
                         </td>
                         <td className="text-center py-3">
-                          <div>{x?.Status}</div>
+                          <div>{x?.status}</div>
                         </td>
                         <td className="text-center py-3">
                           <div>

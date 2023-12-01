@@ -18,6 +18,7 @@ import { ToastNotify } from "../../../../components/reusables/helpers/ToastNotif
 import { responseMessageHandler } from "../../../../utils/libs";
 import useToggle from "../../../../utils/hooks/useToggle";
 import PageLoader from "../../../../components/PageLoader";
+import NigerianCurrencyFormatter from "../../../../components/reusables/NigerianCurrencyFormat";
 
 const JobDescription = ({ jobDetails }) => {
   const userData = useSelector((state) => state?.auth?.data);
@@ -126,7 +127,8 @@ const JobDescription = ({ jobDetails }) => {
           <div className="text-center space-y-3 ">
             <div className="text-lg font-semibold">Salary (Naira)</div>
             <div className="text-xl font-semibold">
-              {jobDetails?.minSalary} - {jobDetails?.maxSalary}
+              {<NigerianCurrencyFormatter number={jobDetails?.minSalary} />} -{" "}
+              {<NigerianCurrencyFormatter number={jobDetails?.maxSalary} />}
             </div>
             <div className="text-lg">{jobDetails?.salaryStructure}</div>
           </div>

@@ -15,7 +15,7 @@ import Overview from "./component/Overview";
 
 const JobSeekerOverview = () => {
   const userData = useSelector((state) => state?.auth?.data);
-  const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [selectedMenu, setSelectedMenu] = useState("Overview");
 
   return (
     <>

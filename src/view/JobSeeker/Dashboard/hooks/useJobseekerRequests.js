@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import useToggle from "../../../../utils/hooks/useToggle";
-import { GetAllJobs } from "../../../../utils/apiURLs/requests";
+import { GetAllJobs, GetAppliedJobs } from "../../../../utils/apiURLs/requests";
 import useApiRequest from "../../../../utils/hooks/useApiRequest";
 
 const useJobseekerRequests = () => {
   const makeRequest = useApiRequest();
   const [jobs, setJobs] = useState([]);
+  const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, toggleLoading] = useToggle();
 
-  //   const getAllUsers = async () => {
-  //     try {
-  //       const response = await makeRequest.get(SearchUsers, {
-  //         params: { value: "" },
-  //       });
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const getAppliedJobs = async () => {
+    try {
+      const response = await makeRequest.get(GetAppliedJobs);
+      if (response?.data?.actionMessage === "Success") {
+        setAppliedJobs(response?.data?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getAllJobs = async () => {
     toggleLoading();
@@ -53,6 +54,8 @@ const useJobseekerRequests = () => {
 
   return {
     getAllJobs,
+    getAppliedJobs,
+    appliedJobs,
     jobs,
     // getAllUnverifiedUsers,
     verifyUser,

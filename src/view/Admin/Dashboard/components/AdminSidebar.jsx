@@ -50,7 +50,7 @@ const AdminSidebar = ({ selectedMenu, setSelectedMenu }) => {
           </div>
           <div
             onClick={() => {
-              setSelectedMenu("Profile");
+              setSelectedMenu("Profiles");
               navigate("/dashboard/admin/profile");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
@@ -68,29 +68,29 @@ const AdminSidebar = ({ selectedMenu, setSelectedMenu }) => {
                 height: "20px",
               }}
             />
-            Profile
+            Company Profiles
           </div>
           <div
             onClick={() => {
-              setSelectedMenu("Jobs");
-              navigate("/dashboard/admin/jobs");
+              setSelectedMenu("Users");
+              navigate("/dashboard/admin/users");
             }}
             className={`flex cursor-pointer items-center gap-3 ${
-              window.location.pathname === "/dashboard/admin/jobs" &&
+              window.location.pathname === "/dashboard/admin/users" &&
               "text-[#1ACAA6] bg-white p-2 rounded-xl"
             }`}
           >
             <App
               style={{
                 fill:
-                  window.location.pathname === "/dashboard/admin/jobs"
+                  window.location.pathname === "/dashboard/admin/users"
                     ? "#1ACAA6"
                     : "#FFFFFF", // Set the fill color based on the selected state
                 width: "20px", // Set the width and height of the SVG
                 height: "20px",
               }}
             />
-            Jobs
+            Users
           </div>
           <div
             onClick={() => setSelectedMenu("Messages")}

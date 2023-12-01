@@ -8,10 +8,12 @@ import { responseMessageHandler } from "../../../../utils/libs";
 import { CreateProfile } from "../../../../utils/apiURLs/requests";
 import { ToastNotify } from "../../../../components/reusables/helpers/ToastNotify";
 import PageLoader from "../../../../components/PageLoader";
+import { useSelector } from "react-redux";
 
 const FoundingInfo = () => {
   const [loading, toggleLoading] = useToggle();
   const makeRequest = useApiRequest();
+  const userData = useSelector((state) => state?.auth?.data);
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +37,7 @@ const FoundingInfo = () => {
         // twitterLink: "string",
         // linkedInLink: "string",
         // instagramLink: "string",
-        // signedInEmail: "string",
+        signedInEmail: userData?.email,
       };
       try {
         const response = await makeRequest.post(CreateProfile, payload);

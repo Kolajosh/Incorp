@@ -5,23 +5,24 @@ import { useState } from "react";
 
 const JobPersonality = ({ setJobPayload, setSelectedNav }) => {
   const item = [
-    "INFJ",
-    "ENTJ",
-    "ESFJ",
-    "INTJ",
-    "ENTP",
-    "ESTJ",
-    "ENFJ",
-    "ISTJ",
-    "INTP",
-    "ISFJ",
-    "ESTP",
-    "ESFP",
-    "ISFP",
-    "ISTP",
-    "ENFP",
-    "INFP",
+    { value: "INFJ", label: "INFJ (Counselor)" },
+    { value: "ENTJ", label: "ENTJ (Commander)" },
+    { value: "ESFJ", label: "ESFJ (Provider)" },
+    { value: "INTJ", label: "INTJ (Mastermind)" },
+    { value: "ENTP", label: "ENTP (Visionary)" },
+    { value: "ESTJ", label: "ESTJ (Overseer)" },
+    { value: "ENFJ", label: "ENFJ (Teacher)" },
+    { value: "ISTJ", label: "ISTJ (Inspector)" },
+    { value: "INTP", label: "INTP (Architect)" },
+    { value: "ISFJ", label: "ISFJ (Protector)" },
+    { value: "ESTP", label: "ESTP (Dynamo)" },
+    { value: "ESFP", label: "ESFP (Performer)" },
+    { value: "ISFP", label: "ISFP (Composer)" },
+    { value: "ISTP", label: "ISTP (Craftsman)" },
+    { value: "ENFP", label: "ENFP (Champion)" },
+    { value: "INFP", label: "INFP (Healer)" },
   ];
+  
 
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -30,10 +31,12 @@ const JobPersonality = ({ setJobPayload, setSelectedNav }) => {
   };
 
   const handleClick = () => {
-    setJobPayload((prev) => ({ ...prev, preferredPersonalityTypes: [...selectedItem] }));
+    setJobPayload((prev) => ({
+      ...prev,
+      preferredPersonalityTypes: [...selectedItem],
+    }));
     setSelectedNav("TTest");
   };
-
 
   return (
     <>

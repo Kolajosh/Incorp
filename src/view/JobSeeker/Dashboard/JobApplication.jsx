@@ -7,12 +7,22 @@ import { CustomButton } from "../../../components/buttons/CustomButton";
 import { ReactComponent as CompanyIcon } from "../../../assets/svg/company-icon.svg";
 import ApplicationNavigator from "./component/ApplicationNavigator";
 import TableData from "./component/JobApplication/TableData";
+import useJobseekerRequests from "./hooks/useJobseekerRequests";
+import { useEffect } from "react";
+import CvScan from "./component/JobApplication/CvScan";
+import PersonalityTests from "./component/JobApplication/PersonalityTests";
+import TechnicalTests from "./component/JobApplication/TechnicalTests";
 
 const JobApplication = () => {
   const userData = useSelector((state) => state?.auth?.data);
-  const appliedJobs = JSON.parse(userData?.jobs);
-  const [selectedMenu, setSelectedMenu] = useState("Home");
+  // const appliedJobs = JSON.parse(userData?.jobs);
+  const [selectedMenu, setSelectedMenu] = useState("Application");
   const [selectedNav, setSelectedNav] = useState("All");
+  const { getAppliedJobs, appliedJobs } = useJobseekerRequests();
+
+  useEffect(() => {
+    getAppliedJobs();
+  }, []);
 
   console.log(appliedJobs);
 
@@ -28,11 +38,6 @@ const JobApplication = () => {
         <div className="col-span-5 h-screen bg-[#EFF6F5] overflow-scroll">
           <div>
             <Navbar title={selectedMenu} userData={userData} />
-            <div className=" mx-5 mt 10 flex items-center gap-5">
-              <TextInput name="job" placeHolder="Designer" />
-              <TextInput name="location" placeHolder="Nigeria" />
-              <CustomButton labelText={"Search"} />
-            </div>
           </div>
 
           <div>
@@ -43,7 +48,14 @@ const JobApplication = () => {
           </div>
 
           <div>
-            <TableData appliedJobs={appliedJobs} />
+            {selectedNav === "All" && <TableData appliedJobs={appliedJobs} />}
+            {selectedNav === "CvScan" && <CvScan appliedJobs={appliedJobs} />}
+            {selectedNav === "PersonalityTest" && (
+              <PersonalityTests appliedJobs={appliedJobs} />
+            )}
+            {selectedNav === "TechTest" && (
+              <TechnicalTests appliedJobs={appliedJobs} />
+            )}
           </div>
 
           {/* footer */}
