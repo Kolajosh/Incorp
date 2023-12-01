@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const PersonalityTestQuestion = ({ question, onSelectAnswer }) => {
+export const PersonalityTestQuestion = ({ question, onSelectAnswer, isPersonalityTest }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const handleAnswerSelection = (answerId) => {
@@ -29,7 +29,9 @@ export const PersonalityTestQuestion = ({ question, onSelectAnswer }) => {
               onChange={() => handleAnswerSelection(option.Id)}
               checked={selectedAnswer === option.Id}
             />
-            <span className="ml-2">{option.Value}</span>
+            <span className="ml-2">
+              {isPersonalityTest ? (option.Id === 1 ? "Yes" : "No") : option.Value}
+            </span>
           </label>
         ))}
       </div>

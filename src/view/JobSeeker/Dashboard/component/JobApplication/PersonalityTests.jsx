@@ -185,8 +185,9 @@ const PersonalityTests = ({ appliedJobs }) => {
           <div>
             {JSON?.parse(questions?.stageInfo).map((question) => (
               <PersonalityTestQuestion
-                key={question.QuestionId}
+                key={question?.QuestionId}
                 question={question}
+                isPersonalityTest={true}
                 onSelectAnswer={handleAnswerSelect}
               />
             ))}
