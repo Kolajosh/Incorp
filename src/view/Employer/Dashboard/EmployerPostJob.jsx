@@ -202,13 +202,21 @@ const EmployerPostJob = () => {
                 </select>
                 <button
                   onClick={() => addTest()}
-                  className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                  className="bg-green-500 text-white px-2 py-1 rounded-md"
                 >
                   Add Test
                 </button>
               </li>
               <li className="list-disc ml-5">Interview</li>
             </ul>
+            <div>
+              <button
+                onClick={() => toggleNewModal(false)}
+                className="bg-green-500 text-white px-2 py-4 mt-5 rounded-md"
+              >
+                Apply Changes
+              </button>
+            </div>
           </div>
         </CenterModal>
       )}
